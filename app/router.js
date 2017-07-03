@@ -7,9 +7,7 @@ const profile = pug.compileFile('./views/profile.pug')
 module.exports = function (app, passport) {
 
     app.get('/', (req, res) => {
-        res.writeHead(200, { 'Content-Type': 'text/html' })
-        res.write(index({}))
-        res.end()
+        res.render('../views/index.pug')
     })
 
     app.get('/login', (req, res) => {
