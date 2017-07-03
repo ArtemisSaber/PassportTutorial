@@ -4,11 +4,17 @@
   "description": "Passport.js Tutorial Project",
   "main": "index.js",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.2",
+    "connect-flash": "^0.1.1",
     "connect-mongo": "^1.3.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "mongoose": "^4.11.0",
-    "passport": "^0.3.2"
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "pug": "^2.0.0-rc.2"
   },
   "devDependencies": {},
   "scripts": {
