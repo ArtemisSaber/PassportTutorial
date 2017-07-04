@@ -39,7 +39,7 @@ function storeGoogleUser(user = new User(), profile, token, callback) {
     user.google.id = profile.id
     user.google.token = token
     user.google.name = profile.displayName
-    user.gooogle.email = profile.emails[0].value
+    user.google.email = profile.emails[0].value
     user.save(err => {
         if (err) {
             throw err
