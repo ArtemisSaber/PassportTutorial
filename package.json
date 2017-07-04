@@ -11,11 +11,14 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "express-session": "^1.15.3",
-    "mongodb": "^2.2.29",
     "mongoose": "^4.11.0",
     "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
-    "pug": "^2.0.0-rc.2"
+    "pug": "^2.0.0-rc.2",
+    "require-optional": "^0.4.0",
+    "require_optional": "^1.0.1"
   },
   "devDependencies": {},
   "scripts": {

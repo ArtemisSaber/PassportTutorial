@@ -9,7 +9,7 @@ module.exports = function (app, passport) {
     app.get('/', (req, res) => {
         res.render('../views/index.pug')
     })
-
+    //local authentication
     app.get('/login', (req, res) => {
         res.render('../views/login.pug',{message:req.flash('loginMessage')})
     })
@@ -19,7 +19,22 @@ module.exports = function (app, passport) {
         failureRedirect:'/login',
         failureFlash:true
     }))
+    //facebook authorization
+    app.get('/auth/facebook',passport.authenticate('facebook',{scope:'email'}))
 
+    app.get('/auth/facebook/callback',passport.authenticate('facebook',{
+        successRedirect:'/profile',
+        failureRedirect:'/'
+    }))
+
+    //google authorization
+    app.get('/auth/google',passport.authenticate('google',{scope:['profile','email']}))
+    app.get('/auth/google/callback',passport.authenticate('google',{
+        successRedirect:'/profile',
+        failureRedirect:'/'
+    }))
+
+    //local signup
     app.get('/signup', (req, res) => {
         res.render('../views/signup.pug', { message: req.flash('signupMessage') })
     })
@@ -28,6 +43,29 @@ module.exports = function (app, passport) {
         successRedirect: '/profile',
         failureRedirect: '/signin',
         failureFlash: true
+    }))
+
+    //account link
+    //local account
+    app.get('/connect/local',(req,res)=>{
+        res.render('../views/connect_local.pug',{message:req.flash('loginMessage')})
+    })
+    app.post('/connect/local',passport.authenticate('local-signup',{
+        successRedirect:'/profile',
+        failureRedirect:'/connect/local',
+        failureFlash:true
+    }))
+    //facebook
+    app.get('/connect/facebook',passport.authorize('facebook',{scope:'email'}))
+    app.get('/connect/facebool/callback',passport.authorize('facebook',{
+        successRedirect:'/profile',
+        failureRedirect:'/'
+    }))
+    //google
+    app.get('/connect/google',passport.authorize('google',{scope:['profile','email']}))
+    app.get('/connect/google/callback',passport.authorize('google',{
+        successRedirect:'/profile',
+        failureRedirect:'/'
     }))
 
 

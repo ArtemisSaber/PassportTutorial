@@ -1,5 +1,6 @@
 extends layout
 block content
+    #user
     div.container
         div(class="page-header text-center")
             h1
@@ -10,10 +11,33 @@ block content
                 div(class="well")
                     h3
                         span(class="fa fa-user") Local
-                
-                    p
-                        strong id : #{user._id}
-                        br
-                        strong email : #{user.local.email}
-                        br
-                        strong pwd : #{user.local.pwd}
+                    
+                    if(user.local.email)
+                        p
+                            strong id : #{user._id}
+                            br
+                            strong email : #{user.local.email}
+                            br
+                            strong pwd : #{user.local.pwd}
+                    else
+                        a(href="/connect/local").btn.btn-default 
+            div.col-md-6.col-xs-6
+                div.well
+                    h3.text-danger
+                        span.fa.fa-google-plus Google+
+                    
+                    if(user.google.token)
+                        p
+                            strong id
+                                |:#{user.google.id}
+                            br
+                            strong token
+                                |:#{user.google.token}
+                            br
+                            strong email
+                                |:#{user.google.email}
+                            br
+                            strong name
+                                |:#{user.google.name}
+                    else
+                        a.btn.btn-danger(href="/connect/google") Connect Google+

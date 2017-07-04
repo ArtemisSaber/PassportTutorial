@@ -2,7 +2,6 @@ var express = require('express')
 var app = express()
 var port = process.env.PORT || 8082
 var mongoose = require('mongoose')
-var mongoClient = require('mongodb').MongoClient;
 var passport = require('passport')
 var flash = require('connect-flash')
 
