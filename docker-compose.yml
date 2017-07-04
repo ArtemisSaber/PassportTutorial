@@ -26,8 +26,6 @@ services:
   mongodb:
     image: mongo
     container_name: mongodb
-    ports:
-      - '27017:27017'
     environment: 
       - MONGO_DATA_DIR=/data/db
       - MONGO_LOG_DIR=/dev/null
@@ -41,7 +39,7 @@ services:
       - lets_encrypt_nginx_companion
     build: .
     container_name: passportjs
-    image: howard/passport:latest
+    image: howard/passport:latestdo
     restart: always
     environment:
       - VIRTUAL_HOST=www.semimajoraxis.com
