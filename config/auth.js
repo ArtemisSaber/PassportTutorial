@@ -35,6 +35,7 @@ function storeFacebookUser(user = new User(), profile, token, callback) {
     })
 }
 function storeGoogleUser(user = new User(), profile, token, callback) {
+    console.log(profile)
     user.google.id = profile.id
     user.google.token = token
     user.google.name = profile.displayName
