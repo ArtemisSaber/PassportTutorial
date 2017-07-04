@@ -6,6 +6,6 @@ RUN npm install
 COPY . /usr/src/Passport
 EXPOSE 80
 EXPOSE 443
-CMD ['npm','start']
+CMD ["npm","start"]
 
 
