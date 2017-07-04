@@ -18,7 +18,8 @@
     "passport-local": "^1.0.0",
     "pug": "^2.0.0-rc.2",
     "require-optional": "^0.4.0",
-    "require_optional": "^1.0.1"
+    "require_optional": "^1.0.1",
+    "socks-proxy-agent": "^3.0.0"
   },
   "devDependencies": {},
   "scripts": {
