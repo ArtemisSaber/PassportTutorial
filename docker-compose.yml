@@ -39,8 +39,11 @@ services:
       - lets_encrypt_nginx_companion
     build: .
     container_name: passportjs
-    image: howard/passport:latestdo
+    image: howard/passport:latest
+
     restart: always
+    links:
+      - mongodb
     environment:
       - VIRTUAL_HOST=www.semimajoraxis.com
       - LETSENCRYPT_HOST=www.semimajoraxis.com
