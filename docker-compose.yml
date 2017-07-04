@@ -33,7 +33,7 @@ services:
       - MONGO_LOG_DIR=/dev/null
     volumes:
       - ./data/db:/data/db
-    commands: mongod --smallfiles --logpath=/dev/null --quiet
+    command: mongod --smallfiles --logpath=/dev/null --quiet
   passportjs:
     depends_on:
       - mongodb
