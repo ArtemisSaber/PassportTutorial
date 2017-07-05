@@ -51,10 +51,11 @@ function storeGoogleUser(user = new User(), profile, token, callback) {
 }
 //save github user entity
 function storeGithubUser(user = new User(), profile, token, callback) {
+    console.log(profile)
     user.github.id = profile.id
     user.github.token = token
     user.github.nickName = profile.displayName
-    user.github.email = profile.emails[0].value
+    user.github.email = profile.email
     user.save(err => {
         if (err) {
             console.log(err)
