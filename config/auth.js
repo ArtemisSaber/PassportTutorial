@@ -54,8 +54,7 @@ function storeGithubUser(user = new User(), profile, token, callback) {
     console.log(profile)
     user.github.id = profile.id
     user.github.token = token
-    user.github.nickName = profile.displayName
-    user.github.email = profile.email
+    user.github.nickName = profile.username
     user.save(err => {
         if (err) {
             console.log(err)
