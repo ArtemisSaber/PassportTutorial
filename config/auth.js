@@ -2,7 +2,7 @@ var passport_local = require('passport-local')
 var LocalStrategy = passport_local.Strategy
 var FacebookStrategy = require('passport-facebook').Strategy
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
-var GithubStrategy = require('passport-github2').Strategy
+var GithubStrategy = require('passport-github').Strategy
 var User = require('../app/models/user')
 var Auth = require('./user_r')
 if (!Auth) {
