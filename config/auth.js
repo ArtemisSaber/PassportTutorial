@@ -2,6 +2,7 @@ var passport_local = require('passport-local')
 var LocalStrategy = passport_local.Strategy
 var FacebookStrategy = require('passport-facebook').Strategy
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
+var GithubStrategy = require('passport-github2').Strategy
 var User = require('../app/models/user')
 var Auth = require('./user_r')
 if (!Auth) {
@@ -34,6 +35,7 @@ function storeFacebookUser(user = new User(), profile, token, callback) {
         callback(err, user)
     })
 }
+//save google user entity
 function storeGoogleUser(user = new User(), profile, token, callback) {
     console.log(profile.emails[0].value)
     user.google.id = profile.id
@@ -42,6 +44,20 @@ function storeGoogleUser(user = new User(), profile, token, callback) {
     user.google.email = profile.emails[0].value
     user.save(err => {
         if (err) {
+            throw err
+        }
+        callback(err, user)
+    })
+}
+//save github user entity
+function storeGithubUser(user = new User(), profile, token, callback) {
+    user.github.id = profile.id
+    user.github.token = token
+    user.github.nickName = profile.displayName
+    user.github.email = profile.emails[0].value
+    user.save(err => {
+        if (err) {
+            console.log(err)
             throw err
         }
         callback(err, user)
@@ -75,7 +91,7 @@ module.exports = function (passport) {
                 if (user) {
                     return done(null, false, req.flash('signupMessage', 'That email was already registered'))
                 } else {
-                    storeUser(undefined,email, pwd, (err, User) => {
+                    storeUser(undefined, email, pwd, (err, User) => {
                         return done(err, User)
                     })
                 }
@@ -164,13 +180,45 @@ module.exports = function (passport) {
                         })
                     }
                 })
-            }else{
+            } else {
                 var user = req.user
-                storeGoogleUser(user,profile,token,(err,user)=>{
-                    return done(null,user)
+                storeGoogleUser(user, profile, token, (err, user) => {
+                    return done(null, user)
                 })
             }
         })
     }
     ))
+
+    //github strategy
+    passport.use(new GithubStrategy({
+        clientID: Auth.githubAuth.clientID,
+        clientSecret: Auth.githubAuth.clientSecret,
+        callbackURL: Auth.githubAuth.callbackURL,
+        passReqToCallback: true
+    }, (req, token, refreshToken, profile, done) => {
+        process.nextTick(() => {
+            if (!req.user) {
+                User.findOne({ 'github.id': profile.id }, (err, user) => {
+                    if (err) {
+                        console.log(err)
+                        return done(err)
+                    }
+                    if (user) {
+                        return done(undefined, user)
+                    } else {
+                        storeGithubUser(undefined, profile, token, (err, user) => {
+                            return done(null, user)
+                        })
+                    }
+                })
+            } else {
+                var user = req.user
+                storeGithubUser(user, profile, token, (err, user) => {
+                    return done(null, user)
+                })
+            }
+        })
+    }))
+
 }

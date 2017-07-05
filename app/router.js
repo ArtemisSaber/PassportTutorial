@@ -34,6 +34,13 @@ module.exports = function (app, passport) {
         failureRedirect:'/'
     }))
 
+    //github authorization
+    app.get('/auth/github',passport.authenticate('github',{scope:'user:email'}))
+    app.get('/auth/github/callback',passport.authenticate('github',{
+        successRedirect:'/profile',
+        failureRedirect:'/'
+    }))
+
     //local signup
     app.get('/signup', (req, res) => {
         res.render('../views/signup.pug', { message: req.flash('signupMessage') })
@@ -64,6 +71,12 @@ module.exports = function (app, passport) {
     //google
     app.get('/connect/google',passport.authorize('google',{scope:['profile','email']}))
     app.get('/connect/google/callback',passport.authorize('google',{
+        successRedirect:'/profile',
+        failureRedirect:'/'
+    }))
+    //github
+    app.get('/connect/github',passport.authorize('github',{scope:'user:email'}))
+    app.get('/connect/github/callback',passport.authorize('github',{
         successRedirect:'/profile',
         failureRedirect:'/'
     }))

@@ -24,7 +24,7 @@ block content
             div.col-md-6.col-xs-6
                 div.well
                     h3.text-danger
-                        span.fa.fa-google-plus Google+
+                        span.fa.fa-google-plus | Google+
                     
                     if(user.google.token)
                         p
@@ -41,3 +41,19 @@ block content
                                 |:#{user.google.name}
                     else
                         a.btn.btn-danger(href="/connect/google") Connect Google+
+            div.col-md-6.col-xs-6
+                div.well
+                    h3
+                        span.fa.fa-github Github
+                    
+                    if(user.github.toker)
+                        p
+                            strong id: #{user.github.id}
+                            br
+                            strong token: #{user.github.token}
+                            br
+                            strong email: #{user.github.email}
+                            br
+                            strong name: #{user.github.nickName}
+                    else
+                        a.btn.btn-primary(href="/connect/github") Connect Github
